@@ -1,0 +1,749 @@
+/* ==========================================================================
+   1. DESIGN TOKENS & SYSTEM VARIABLES
+   ========================================================================== */
+:root {
+    --bg-app: #f4f6fa;
+    --bg-surface: #ffffff;
+    --border-color: #e2e8f0;
+    --ink-primary: #1e293b;
+    --ink-secondary: #64748b;
+    --ink-faint: #94a3b8;
+    
+    --primary: #3454d1;
+    --primary-light: rgba(52, 84, 209, 0.08);
+    --success: #1f9d63;
+    --success-light: rgba(31, 157, 99, 0.1);
+    --danger: #e1483c;
+    --danger-light: rgba(225, 72, 60, 0.1);
+    --gold: #e8a33d;
+    --gold-light: rgba(232, 163, 61, 0.1);
+    
+    --radius-lg: 16px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
+    --shadow-md: 0 8px 24px rgba(148, 163, 184, 0.12);
+}
+
+[data-theme="dark"] {
+    --bg-app: #0f172a;
+    --bg-surface: #1e293b;
+    --border-color: #334155;
+    --ink-primary: #f8fafc;
+    --ink-secondary: #94a3b8;
+    --ink-faint: #64748b;
+    
+    --primary: #5875e8;
+    --primary-light: rgba(88, 117, 232, 0.15);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   2. CORE RESET & BASE STYLES
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink-primary);
+    line-height: 1.5;
+    transition: background-color 0.3s ease;
+    
+    /* Premium Animated Tech Lines Background */
+    background-color: var(--bg-app);
+    background-image: 
+        linear-gradient(rgba(52, 84, 209, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(52, 84, 209, 0.04) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: center center;
+    position: relative;
+    animation: backgroundScroll 20s linear infinite;
+}
+
+/* Moving grid background animation */
+@keyframes backgroundScroll {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 40px 40px;
+    }
+}
+
+/* Dark mode adjustment for the tech lines */
+[data-theme="dark"] body {
+    background-image: 
+        linear-gradient(rgba(88, 117, 232, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(88, 117, 232, 0.06) 1px, transparent 1px);
+}
+
+.app-container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Utilities */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.actions-cluster {
+    display: flex;
+    gap: 8px;
+}
+
+/* Base Interactive Elements */
+button.icon-btn {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    color: var(--ink-secondary);
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: all 0.2s ease;
+}
+
+button.icon-btn:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+/* ==========================================================================
+   3. SCREEN CONTAINERS & PANELS
+   ========================================================================== */
+.screen {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+}
+
+.screen.active {
+    display: flex;
+}
+
+.panel {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 20px;
+}
+
+/* ==========================================================================
+   4. COMPONENT STYLES
+   ========================================================================== */
+
+/* Inline Code Element Adaptations */
+.txt code, 
+#questionText code {
+    background-color: rgba(0, 0, 0, 0.06);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+[data-theme="dark"] .txt code,
+[data-theme="dark"] #questionText code {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Choice Selection Card Grids */
+#categoryGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    margin: 16px 0 24px;
+}
+
+.choice-card {
+    background: var(--bg-surface);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.choice-card .ic {
+    font-size: 2rem;
+    color: var(--ink-secondary);
+}
+
+.choice-card.selected {
+    border-color: var(--primary);
+    background-color: var(--primary-light);
+}
+
+.choice-card.selected .ic {
+    color: var(--primary);
+}
+
+/* Row-based Pill Selectors */
+.pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0 24px;
+}
+
+.pill {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--ink-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pill.selected {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+}
+
+/* Personal Best Box Widget */
+.best-meta-box {
+    background: var(--bg-app);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bb-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-secondary);
+    font-weight: 700;
+}
+
+.bb-val {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+/* Primary Form Action Button */
+.action-btn {
+    background: var(--primary);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 16px 24px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(52, 84, 209, 0.2);
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover:not(:disabled) {
+    opacity: 0.95;
+    transform: translateY(-1px);
+}
+
+.action-btn:disabled {
+    background: var(--border-color);
+    color: var(--ink-faint);
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* ==========================================================================
+   5. QUIZ GAME SCREEN MODULES
+   ========================================================================== */
+.meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.meta-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: var(--primary-light);
+    color: var(--primary);
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.streak-tag {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink-secondary);
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.2s ease;
+}
+
+.streak-tag.on {
+    opacity: 1;
+    transform: scale(1);
+    color: var(--gold);
+}
+
+/* Radial Timer Rings */
+.timer-container {
+    position: relative;
+    width: 48px;
+    height: 48px;
+}
+
+.timer-ring {
+    transform: rotate(-90deg);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.timer-ring circle {
+    fill: none;
+    stroke-width: 4;
+    stroke: var(--primary);
+    transition: stroke-dashoffset 1s linear;
+}
+
+.timer-num {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.timer-ring.low circle {
+    stroke: var(--danger);
+}
+
+.timer-ring.low {
+    animation: pulseWarning 1s ease-in-out infinite alternate;
+}
+
+@keyframes pulseWarning {
+    0% { box-shadow: 0 0 4px rgba(225, 72, 60, 0.2); }
+    100% { box-shadow: 0 0 12px rgba(225, 72, 60, 0.5); }
+}
+
+/* Segments Processing Bar */
+.progress-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 24px;
+}
+
+.progress-seg {
+    flex: 1;
+    height: 6px;
+    background: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-seg .fill {
+    width: 0%;
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.progress-seg.current .fill {
+    width: 50%;
+}
+
+.progress-seg.done .fill {
+    width: 100%;
+}
+
+/* Question Content Block */
+.question-block h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+/* Choice Buttons Stack Container */
+.options-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.option {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    text-align: left;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.option:hover:not(:disabled) {
+    border-color: var(--primary);
+    background-color: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.option:disabled {
+    cursor: not-allowed;
+}
+
+.option .badge {
+    width: 28px;
+    height: 28px;
+    background: var(--bg-app);
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-right: 14px;
+    color: var(--ink-secondary);
+}
+
+/* Verification State Styles */
+.option.correct {
+    border-color: var(--success);
+    background-color: var(--success-light);
+}
+.option.correct .badge {
+    background: var(--success);
+    color: #ffffff;
+}
+
+.option.incorrect {
+    border-color: var(--danger);
+    background-color: var(--danger-light);
+}
+.option.incorrect .badge {
+    background: var(--danger);
+    color: #ffffff;
+}
+
+.option.reveal {
+    border-color: var(--success);
+    border-style: dashed;
+    background-color: var(--success-light);
+}
+
+.stamp {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    animation: stampPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+.stamp.ok { color: var(--success); background: rgba(31,157,99,0.08); }
+.stamp.no { color: var(--danger); background: rgba(225,72,60,0.08); }
+
+@keyframes stampPop {
+    0% { opacity: 0; transform: scale(0.7); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* ==========================================================================
+   6. METRIC DIALS & SCORES SCREEN
+   ========================================================================== */
+.score-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.best-ribbon {
+    background: var(--gold-light);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.dial-box {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin-bottom: 16px;
+}
+
+.dial-svg {
+    width: 140px;
+    height: 140px;
+    transform: rotate(-90deg);
+}
+
+.dial-svg circle {
+    fill: none;
+    stroke-width: 10;
+}
+
+.dial-svg .bg {
+    stroke: var(--bg-app);
+}
+
+.dial-svg .fill {
+    stroke: var(--success);
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1.4s ease-in-out;
+}
+
+.dial-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.dial-letter {
+    font-size: 2.5rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.dial-caption {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--ink-secondary);
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+}
+
+.score-text-line {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--ink-secondary);
+}
+
+.score-text-line b {
+    color: var(--ink-primary);
+    font-size: 1.4rem;
+}
+
+/* Numeric Stats Layout Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.stat-node {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-node .icon-wrap {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.stat-node.points .icon-wrap { background: var(--primary-light); color: var(--primary); }
+.stat-node.streak .icon-wrap { background: var(--gold-light); color: var(--gold); }
+.stat-node.ok .icon-wrap { background: var(--success-light); color: var(--success); }
+.stat-node.no .icon-wrap { background: var(--danger-light); color: var(--danger); }
+
+.stat-node .v {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.stat-node .lbl {
+    font-size: 0.75rem;
+    color: var(--ink-secondary);
+    font-weight: 500;
+}
+
+/* Review Collapsible Drawer */
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 4px 0;
+}
+
+.review-header h3 { font-size: 1.05rem; font-weight: 700; }
+
+.review-toggle-icon {
+    font-size: 0.9rem;
+    color: var(--ink-secondary);
+    transition: transform 0.2s ease;
+}
+
+.review-toggle-icon.open {
+    transform: rotate(180deg);
+}
+
+.review-list {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 16px;
+}
+
+.review-list.open {
+    display: flex;
+}
+
+.review-item {
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 14px;
+}
+.review-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.ri-q {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    display: flex;
+    gap: 8px;
+}
+
+.ri-icon { font-size: 0.9rem; margin-top: 3px; }
+.ri-icon.ok { color: var(--success); }
+.ri-icon.no { color: var(--danger); }
+
+.ri-a {
+    font-size: 0.85rem;
+    margin-left: 22px;
+    margin-top: 4px;
+}
+.ri-a.wrong-ans b { color: var(--danger); }
+.ri-a.right-ans b { color: var(--success); }
+
+/* Double Split Action Row Grid */
+.split-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 30px;
+}
+.split-buttons .action-btn { box-shadow: none; }
+.split-buttons .secondary-btn {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    color: var(--ink-primary);
+}
+.split-buttons .secondary-btn:hover {
+    background: var(--bg-app);
+}
+
+/* ==========================================================================
+   7. UTILITY PLUGINS (Toast & Confetti Canvas Spans)
+   ========================================================================== */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #1e293b;
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 999;
+    pointer-events: none;
+}
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.confetti-piece {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    top: -10px;
+    z-index: 998;
+    border-radius: 2px;
+    animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(105vh) rotate(720deg); }
+}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizly Engine Workspace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.png" type="image/png">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <header class="app-header">
+            <div class="brand">
+                <i class="fas fa-bolt"></i> Quizly
+            </div>
+            <div class="actions-cluster">
+                <button class="icon-btn" id="soundToggle" title="Mute/Unmute System Engine Add-ons">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <button class="icon-btn" id="themeToggle" title="Toggle Appearance Environments">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <main class="screen active" id="screen-start">
+            <div class="panel">
+                <h2 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 4px;">Choose Challenge Track</h2>
+                <p style="font-size: 0.9rem; color: var(--ink-secondary);">Select an ecosystem category target branch below to generate fresh questions.</p>
+                
+                <div id="categoryGrid"></div>
+                
+                <h3 style="font-size: 0.95rem; font-weight: 700;">Target Complexity Scale</h3>
+                <div class="pill-row" id="difficultyRow"></div>
+                
+                <h3 style="font-size: 0.95rem; font-weight: 700;">Question Volume Count</h3>
+                <div class="pill-row" id="countRow"></div>
+            </div>
+
+            <div class="panel best-meta-box">
+                <div>
+                    <div class="bb-title">Track Personal Record</div>
+                    <div id="bestBoxLabel" style="font-size: 0.85rem; font-weight: 600; margin-top: 2px;">HTML · EASY</div>
+                </div>
+                <div class="bb-val" id="bestBoxValue">0%</div>
+            </div>
+
+            <button class="action-btn" id="startBtn">
+                Initialize System Core <i class="fas fa-play" style="font-size: 0.85rem; margin-left: 4px;"></i>
+            </button>
+        </main>
+
+        <main class="screen" id="screen-quiz">
+            <div class="meta-row">
+                <div>
+                    <div class="meta-tag" id="qTag">HTML · EASY</div>
+                    <div id="qCount" style="font-size: 1.1rem; font-weight: 800; margin-top: 6px;">Question 01 / 05</div>
+                </div>
+                
+                <div class="timer-container">
+                    <svg class="timer-ring" id="timerRing">
+                        <circle id="timerCircle" cx="24" cy="24" r="20"></circle>
+                    </svg>
+                    <div class="timer-num" id="timerNum">15</div>
+                </div>
+            </div>
+
+            <div class="progress-row" id="progressRow"></div>
+
+            <div class="panel question-block">
+                <div class="meta-row" style="margin-bottom: 12px;">
+                    <span style="font-size: 0.85rem; color: var(--ink-secondary); font-weight: 600;">Question Task Payload:</span>
+                    <span class="streak-tag" id="streakLabel"><i class="fas fa-fire"></i> 0 streak</span>
+                </div>
+                <h2 id="questionText">Loading target question string metrics...</h2>
+                
+                <div class="options-stack" id="optionsWrap"></div>
+            </div>
+
+            <button class="action-btn" id="nextBtn" disabled>
+                Next Question <i class="fas fa-arrow-right" style="margin-left: 6px;"></i>
+            </button>
+        </main>
+
+        <main class="screen" id="screen-result">
+            <div class="panel score-card">
+                <div id="bestRibbonWrap"></div>
+                
+                <div class="dial-box">
+                    <svg class="dial-svg">
+                        <circle class="bg" cx="70" cy="70" r="60"></circle>
+                        <circle class="fill" id="dialFill" cx="70" cy="70" r="60" stroke-dasharray="376.99" stroke-dashoffset="376.99"></circle>
+                    </svg>
+                    <div class="dial-content">
+                        <div class="dial-letter" id="gradeLetter">A+</div>
+                        <div class="dial-caption" id="gradeCaption">OUTSTANDING</div>
+                    </div>
+                </div>
+
+                <div class="score-text-line" style="margin-bottom: 4px;">Final Challenge Efficiency Rating</div>
+                <div class="score-text-line">You resolved <b id="scoreLine">5/5</b> questions accurately (<b id="scorePct">100%</b>)</div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-node points">
+                    <div class="icon-wrap"><i class="fas fa-star"></i></div>
+                    <div>
+                        <div class="v" id="statPoints">0</div>
+                        <div class="lbl">Total Points</div>
+                    </div>
+                </div>
+                <div class="stat-node streak">
+                    <div class="icon-wrap"><i class="fas fa-fire"></i></div>
+                    <div>
+                        <div class="v" id="statStreak">0</div>
+                        <div class="lbl">Max Streak</div>
+                    </div>
+                </div>
+                <div class="stat-node ok">
+                    <div class="icon-wrap"><i class="fas fa-check-circle"></i></div>
+                    <div>
+                        <div class="v" id="statCorrect">0</div>
+                        <div class="lbl">Correct Tasks</div>
+                    </div>
+                </div>
+                <div class="stat-node no">
+                    <div class="icon-wrap"><i class="fas fa-times-circle"></i></div>
+                    <div>
+                        <div class="v" id="statWrong">0</div>
+                        <div class="lbl">Failures / Timeouts</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel" style="padding: 20px 24px;">
+                <div class="review-header" id="reviewToggle">
+                    <h3>Inspect Transaction Verification Logs</h3>
+                    <i class="fas fa-chevron-down review-toggle-icon"></i>
+                </div>
+                <div class="review-list" id="reviewList"></div>
+            </div>
+
+            <div class="split-buttons">
+                <button class="action-btn secondary-btn" id="newQuizBtn">
+                    <i class="fas fa-home"></i> Main Hub
+                </button>
+                <button class="action-btn" id="playAgainBtn">
+                    <i class="fas fa-redo"></i> Restart Track
+                </button>
+            </div>
+
+            <button class="action-btn secondary-btn" id="shareBtn" style="width: 100%; margin-bottom: 20px; background: transparent;">
+                <i class="fas fa-share-alt"></i> Export Metrics Log to Clipboard
+            </button>
+        </main>
+
+    </div>
+
+    <div class="toast" id="toast">Log String Notification Payload</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
