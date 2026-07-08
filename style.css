@@ -1,6 +1,3 @@
-/* ==========================================================================
-   1. DESIGN TOKENS & SYSTEM VARIABLES
-   ========================================================================== */
 :root {
     --bg-app: #f4f6fa;
     --bg-surface: #ffffff;
@@ -38,9 +35,6 @@
     --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-/* ==========================================================================
-   2. CORE RESET & BASE STYLES
-   ========================================================================== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -52,8 +46,7 @@ body {
     color: var(--ink-primary);
     line-height: 1.5;
     transition: background-color 0.3s ease;
-    
-    /* Premium Animated Tech Lines Background */
+ 
     background-color: var(--bg-app);
     background-image: 
         linear-gradient(rgba(52, 84, 209, 0.04) 1px, transparent 1px),
@@ -64,7 +57,6 @@ body {
     animation: backgroundScroll 20s linear infinite;
 }
 
-/* Moving grid background animation */
 @keyframes backgroundScroll {
     0% {
         background-position: 0 0;
@@ -74,7 +66,6 @@ body {
     }
 }
 
-/* Dark mode adjustment for the tech lines */
 [data-theme="dark"] body {
     background-image: 
         linear-gradient(rgba(88, 117, 232, 0.06) 1px, transparent 1px),
@@ -90,7 +81,6 @@ body {
     flex-direction: column;
 }
 
-/* Header Utilities */
 .app-header {
     display: flex;
     justify-content: space-between;
@@ -112,7 +102,6 @@ body {
     gap: 8px;
 }
 
-/* Base Interactive Elements */
 button.icon-btn {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
@@ -133,9 +122,6 @@ button.icon-btn:hover {
     border-color: var(--primary);
 }
 
-/* ==========================================================================
-   3. SCREEN CONTAINERS & PANELS
-   ========================================================================== */
 .screen {
     display: none;
     flex-direction: column;
@@ -155,11 +141,6 @@ button.icon-btn:hover {
     margin-bottom: 20px;
 }
 
-/* ==========================================================================
-   4. COMPONENT STYLES
-   ========================================================================== */
-
-/* Inline Code Element Adaptations */
 .txt code, 
 #questionText code {
     background-color: rgba(0, 0, 0, 0.06);
@@ -174,7 +155,6 @@ button.icon-btn:hover {
     background-color: rgba(255, 255, 255, 0.12);
 }
 
-/* Choice Selection Card Grids */
 #categoryGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -210,7 +190,6 @@ button.icon-btn:hover {
     color: var(--primary);
 }
 
-/* Row-based Pill Selectors */
 .pill-row {
     display: flex;
     flex-wrap: wrap;
@@ -236,7 +215,6 @@ button.icon-btn:hover {
     border-color: var(--primary);
 }
 
-/* Personal Best Box Widget */
 .best-meta-box {
     background: var(--bg-app);
     border-radius: var(--radius-md);
@@ -259,7 +237,6 @@ button.icon-btn:hover {
     font-weight: 700;
 }
 
-/* Primary Form Action Button */
 .action-btn {
     background: var(--primary);
     color: #ffffff;
@@ -290,9 +267,6 @@ button.icon-btn:hover {
     cursor: not-allowed;
 }
 
-/* ==========================================================================
-   5. QUIZ GAME SCREEN MODULES
-   ========================================================================== */
 .meta-row {
     display: flex;
     justify-content: space-between;
@@ -325,7 +299,6 @@ button.icon-btn:hover {
     color: var(--gold);
 }
 
-/* Radial Timer Rings */
 .timer-container {
     position: relative;
     width: 48px;
@@ -369,7 +342,6 @@ button.icon-btn:hover {
     100% { box-shadow: 0 0 12px rgba(225, 72, 60, 0.5); }
 }
 
-/* Segments Processing Bar */
 .progress-row {
     display: flex;
     gap: 6px;
@@ -399,14 +371,12 @@ button.icon-btn:hover {
     width: 100%;
 }
 
-/* Question Content Block */
 .question-block h2 {
     font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 24px;
 }
 
-/* Choice Buttons Stack Container */
 .options-stack {
     display: flex;
     flex-direction: column;
@@ -455,7 +425,6 @@ button.icon-btn:hover {
     color: var(--ink-secondary);
 }
 
-/* Verification State Styles */
 .option.correct {
     border-color: var(--success);
     background-color: var(--success-light);
@@ -500,9 +469,6 @@ button.icon-btn:hover {
     100% { opacity: 1; transform: scale(1); }
 }
 
-/* ==========================================================================
-   6. METRIC DIALS & SCORES SCREEN
-   ========================================================================== */
 .score-card {
     display: flex;
     flex-direction: column;
@@ -582,7 +548,6 @@ button.icon-btn:hover {
     font-size: 1.4rem;
 }
 
-/* Numeric Stats Layout Grid */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -628,7 +593,6 @@ button.icon-btn:hover {
     font-weight: 500;
 }
 
-/* Review Collapsible Drawer */
 .review-header {
     display: flex;
     justify-content: space-between;
@@ -691,7 +655,6 @@ button.icon-btn:hover {
 .ri-a.wrong-ans b { color: var(--danger); }
 .ri-a.right-ans b { color: var(--success); }
 
-/* Double Split Action Row Grid */
 .split-buttons {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -708,9 +671,6 @@ button.icon-btn:hover {
     background: var(--bg-app);
 }
 
-/* ==========================================================================
-   7. UTILITY PLUGINS (Toast & Confetti Canvas Spans)
-   ========================================================================== */
 .toast {
     position: fixed;
     bottom: 30px;

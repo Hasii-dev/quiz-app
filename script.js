@@ -1,9 +1,6 @@
 (function(){
   "use strict";
-
-  /* ---------------------------------------------------------
-      QUESTION BANK (15 Questions Per Target - Escaped & Standardized)
-  --------------------------------------------------------- */
+  
   const BANK = {
     html: {
       label: "HTML", iconClass: "fab fa-html5",
@@ -225,9 +222,6 @@
 
   const CATEGORY_KEYS = Object.keys(BANK);
 
-  /* ---------------------------------------------------------
-      STATE
-  --------------------------------------------------------- */
   const state = {
     category: "html",
     difficulty: "easy",
@@ -245,9 +239,6 @@
     soundOn: true,
   };
 
-  /* ---------------------------------------------------------
-      HELPERS
-  --------------------------------------------------------- */
   const $ = (id) => document.getElementById(id);
 
   function shuffle(arr){
@@ -279,9 +270,6 @@
     return diff === "easy" ? 20 : diff === "medium" ? 15 : diff === "hard" ? 10 : 15;
   }
 
-  /* ---------------------------------------------------------
-      SOUND (WebAudio, synthesized — no external files)
-  --------------------------------------------------------- */
   let audioCtx = null;
   function ensureAudio(){
     if(!audioCtx){
@@ -319,9 +307,6 @@
     beep(600, 0, 0.05, "square", 0.03);
   }
 
-  /* ---------------------------------------------------------
-      BUILD START SCREEN CONTROLS
-  --------------------------------------------------------- */
   function buildCategoryGrid(){
     const wrap = $("categoryGrid");
     wrap.innerHTML = "";
@@ -386,9 +371,6 @@
       : `<span class="bb-empty">Not played yet</span>`;
   }
 
-  /* ---------------------------------------------------------
-      QUIZ FLOW
-  --------------------------------------------------------- */
   function prepareQuestions(){
     const pool = shuffle(BANK[state.category][state.difficulty]);
     const picked = pool.slice(0, Math.min(state.numQuestions, pool.length));
@@ -573,9 +555,6 @@
     }
   }
 
-  /* ---------------------------------------------------------
-      RESULTS
-  --------------------------------------------------------- */
   function gradeFor(pct){
     if(pct >= 90) return ["A+", "Outstanding"];
     if(pct >= 80) return ["A", "Great job"];
@@ -606,7 +585,6 @@
     $("statStreak").textContent = state.bestStreak;
     $("statPoints").textContent = state.points;
 
-    // animate dial
     const dialFill = $("dialFill");
     const dialLength = dialFill.getTotalLength();
     dialFill.style.strokeDasharray = `${dialLength}`;
@@ -669,9 +647,6 @@
     setTimeout(() => t.classList.remove("show"), 1800);
   }
 
-  /* ---------------------------------------------------------
-      PREFS: sound + theme
-  --------------------------------------------------------- */
   function loadPrefs(){
     const sound = localStorage.getItem("quizly_sound");
     state.soundOn = sound === null ? true : sound === "1";
@@ -697,9 +672,6 @@
     $("themeToggle").innerHTML = next === "dark" ? `<i class="fas fa-sun"></i>` : `<i class="fas fa-moon"></i>`;
   }
 
-  /* ---------------------------------------------------------
-      EVENTS
-  --------------------------------------------------------- */
   $("startBtn").addEventListener("click", startQuiz);
   $("nextBtn").addEventListener("click", nextQuestion);
   $("soundToggle").addEventListener("click", toggleSound);
@@ -741,9 +713,6 @@
     }
   });
 
-  /* ---------------------------------------------------------
-      INIT
-  --------------------------------------------------------- */
   loadPrefs();
   buildCategoryGrid();
   buildDifficultyRow();
